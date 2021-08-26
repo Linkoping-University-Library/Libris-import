@@ -5,7 +5,7 @@ Processen består av två delar:
 
 Export-skriptet är taget rakt av från KBs exempel: https://github.com/libris/librisxl/blob/master/marc_export/examplescripts/export_nix.sh
 
-Import-skriptet är helt baserat på exempel-skriptet här: https://github.com/folio-org/mod-data-import/blob/master/scripts/load-marc-data-into-folio.sh
+Import-skriptet är en python-översättning av exempel-skriptet här: https://github.com/folio-org/mod-data-import/blob/master/scripts/load-marc-data-into-folio.sh
 
 Klona först och skapa sedan en python virtual environment med:
 
