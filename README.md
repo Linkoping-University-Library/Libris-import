@@ -3,6 +3,8 @@ Processen består av två delar:
 1. Export-skript (bash) som exporterar poster från LibrisXL
 2. Import-skript i python som importerar till FOLIO
 
+Import-skriptet är helt baserat på exempel-skriptet här: https://github.com/folio-org/mod-data-import/blob/master/scripts/load-marc-data-into-folio.sh
+
 Klona först och skapa sedan en python virtual environment med:
 
 cd libris-import
