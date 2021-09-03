@@ -27,4 +27,15 @@ Bash-skriptet "libris_exp.sh" hämtar data från LibrisXL och sparar i mappen "l
 Python-skriptet läser filerna och importerar till FOLIO:
 python libris.py 
 
+Värdet för variabeln jobprofile behöver ändras för att motsvara uuid för en import-jobbprofil i Folio.
+
+Python-skriptet kräver en fil .env på samma nivå som Python-skriptet med följande definitioner:
+FOLIO_ENDPOINT=URL_TILL_FOLIO_SERVER_INOM_CITATTECKEN
+
+USERNAME=ANVÄNDARNAMN_MED_RÄTTIGHETER_INOM_CITATTECKEN
+
+PASSWORD=LÖSENORD_FÖRANVÄNDAREN_INOM_CITATTECKEN
+
+OKAPI_TENANT=VÄRDET_FÖR_OKAPI_TENANT_INOM_CITATTECKEN
+
 I en senare driftmiljö bör båda skripten köras minutvis med en halv minuts förskjutning.
