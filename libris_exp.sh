@@ -1,14 +1,11 @@
 #!/bin/bash
 
-# Det här skriptet kan användas som exempel på hur man automatiskt hämtar poster från Libris
-# Innan du använder det, se till att du fyllt i filen: etc/export.properties
-#
-# Lämpligen körs detta skript minut-vis m h a cron.
 
+# exit shell om nåt går fel:
 set -e
 
 # Se till att vi inte kör flera instanser av skriptet samtidigt
-# [ "${FLOCKER}" != "$0" ] && exec env FLOCKER="$0" flock -en "$0" "$0" "$@" || :
+# Vi kör flock direkt i crontabellen för att förhindra flera instanser, se crontab -e /Anders Fåk
 
 # Om vi kör för första gången, sätt 'nu' till start-tid
 LASTRUNTIMEPATH="lastRun.timestamp"
@@ -30,5 +27,5 @@ curl --fail -XPOST "https://libris.kb.se/api/marc_export/?from=$STARTTIME&until=
 # Om allt gick bra, uppdatera tidsstämpeln
 echo $STOPTIME > $LASTRUNTIMEPATH
 
-# DINA ÄNDRINGAR HÄR, gör något produktivt med datat i 'export.txt', t ex:
-# cat export.txt
+# Importera till FOLIO
+python libris.py
