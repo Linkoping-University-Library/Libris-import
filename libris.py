@@ -38,6 +38,8 @@ for filename in os.listdir(filesFolder):
                 outfile = open(chunksFolder + filename.replace(".mrc", "_" + str(chunkNumber) + ".mrc"), "wb")
 
                 for record in reader:
+                    record.remove_fields('035')
+
                     outfile.write(record.as_marc())
                     recordCounter += 1
 
