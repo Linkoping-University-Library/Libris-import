@@ -96,10 +96,14 @@ for filename in os.listdir(chunksFolder):
 
             while not finished:
                 status = folio.checkProcess(filename)
-                if(status['jobExecutions'][0]['progress']['current'] == status['jobExecutions'][0]['progress']['total']):
-                    if (status['jobExecutions'][0]['status'] == "ERROR"):
-                        logging.error(filename + 'failed during import')
-                    finished = True
+
+                if(len(status['jobExecutions']) > 0):
+                    if 'completedDate' in status['jobExecutions'][0]:
+                        if (status['jobExecutions'][0]['status'] == "ERROR"):
+                            logging.error(filename + 'failed during import')
+                        finished = True
+                    else:
+                        sleep(5)
                 else:
                     sleep(5)
 
