@@ -39,6 +39,9 @@ for filename in os.listdir(filesFolder):
 
                 for record in reader:
                     record.remove_fields('035')
+                    if record['830']:
+                         while record['830']['9']:
+                              record['830'].delete_subfield('9')
 
                     outfile.write(record.as_marc())
                     recordCounter += 1
