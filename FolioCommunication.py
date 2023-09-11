@@ -70,3 +70,11 @@ class FolioCommunication:
         response = requests.post(url, data=json.dumps(data), headers=self.header)
 
         return response
+
+    def checkProcess(self, filename):
+        path = '/metadata-provider/jobExecutions?filename=' + filename
+        url = self.folio_endpoint + path
+
+        response = requests.get(url, headers=self.header)
+
+        return response.json()

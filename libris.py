@@ -3,6 +3,8 @@ import os
 import sys
 import logging
 import pymarc
+from time import sleep
+
 
 logging.basicConfig(filename='/usr/local/bin/python_scripts/logs/libris_import.log', filemode = 'a', level=logging.ERROR)
 
@@ -36,6 +38,11 @@ for filename in os.listdir(filesFolder):
                 outfile = open(chunksFolder + filename.replace(".mrc", "_" + str(chunkNumber) + ".mrc"), "wb")
 
                 for record in reader:
+                    record.remove_fields('035')
+                    if record['830']:
+                         while record['830']['9']:
+                              record['830'].delete_subfield('9')
+
                     outfile.write(record.as_marc())
                     recordCounter += 1
 
@@ -87,7 +94,21 @@ for filename in os.listdir(chunksFolder):
 
             steg3Response = folio.processFile(uploadDefinitionId, data_json)
             logging.info(steg3Response)
-           
+
+            finished = False
+
+            while not finished:
+                status = folio.checkProcess(filename)
+
+                if(len(status['jobExecutions']) > 0):
+                    if 'completedDate' in status['jobExecutions'][0]:
+                        if (status['jobExecutions'][0]['status'] == "ERROR"):
+                            logging.error(filename + 'failed during import')
+                        finished = True
+                    else:
+                        sleep(5)
+                else:
+                    sleep(5)
 
             # Radera filen om allt gick bra
             os.remove(chunksFolder + filename)
